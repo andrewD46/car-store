@@ -1,0 +1,21 @@
+@font-face {
+    font-family: "Tahoma"; 
+    src: url("fonts/Tahoma.ttf") format("truetype"); 
+    font-style: normal; 
+    font-weight: normal; 
+    } 
+
+body {
+  padding-top: 56px;
+  background-color: white;
+}
+
+a {
+    font-family: Tahoma;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 18px;
+    line-height: 22px;
+    color: #0F2D49;
+}
+

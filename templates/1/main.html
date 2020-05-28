@@ -1,0 +1,28 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title>
+            {% block title %}
+                Main
+            {% endblock %}
+        </title>
+        <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+    </head>
+    <body>
+        <h1>CAR STORE</h1>
+        {% include 'header.html' %}
+        {% block app %}
+            {% block content %}
+                {% if user.is_authenticated %}
+                    <div>
+                        <h2>{{ user.first_name }} {{ user.last_name }}</h2>
+                        <img class="avatar" src="{{ user.avatars.latest.image.url }}">
+                    </div>
+                {% endif %}
+            {% endblock %}
+        {% endblock %}
+    </body>
+</html>

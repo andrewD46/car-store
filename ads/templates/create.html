@@ -1,0 +1,16 @@
+{% extends 'main.html' %}
+
+{% block title %}
+    New Ad
+{% endblock %}
+
+{% block app %}
+    <div>
+        <br/>
+        <form method="post" action="/ads/create/">
+            {% csrf_token %}
+            {{ form }}
+            <input type="submit">
+        </form>
+    </div>
+{% endblock %}
