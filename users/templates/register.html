@@ -5,8 +5,7 @@
 {% endblock %}
 
 {% block app %}
-    <div>
-        <br/>
+    <div class="col-lg-6 mb-5">
         <form method="post" action="/register/">
             {% csrf_token %}
             {{ form }}

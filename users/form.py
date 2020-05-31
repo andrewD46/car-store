@@ -1,7 +1,7 @@
 from django import forms
 from django.contrib.auth import authenticate
 from django.contrib.auth.hashers import make_password
-
+import re
 from users.models import User
 
 
@@ -26,7 +26,11 @@ class RegistrationForm(forms.ModelForm):
         }
 
         help_texts = {
-            'username': 'Letters and digits only',
+            'username': None,
+        }
+
+        labels = {
+            'username': 'Имя пользователя',
         }
 
     def save(self, commit=True):
@@ -45,8 +49,8 @@ class RegistrationForm(forms.ModelForm):
 
     def clean_username(self):
         username = self.data['username']
-        if not username.isalpha():
-            raise forms.ValidationError("Username contains forbidden characters")
+        if not re.match("^[A-Za-z0-9_]*$", username):
+            raise forms.ValidationError("Имя пользователя может содержать только буквы и цифры")
 
         return username
 

@@ -3,7 +3,7 @@
     src: url("fonts/Tahoma.ttf") format("truetype"); 
     font-style: normal; 
     font-weight: normal; 
-    } 
+} 
 
 body {
   padding-top: 56px;
@@ -11,11 +11,127 @@ body {
 }
 
 a {
-    font-family: Tahoma;
+    font-family: "Tahoma";
     font-style: normal;
     font-weight: normal;
     font-size: 18px;
     line-height: 22px;
     color: #0F2D49;
+}
+
+nav {
+    background-color: white;
+    box-shadow: 0 0 15px rgba(15, 45, 73, 0.103);
+}
+
+.login, .reg {
+    font-family: 'Roboto', sans-serif;
+    font-style: normal;
+    font-weight: bold;
+    font-size: 18px;
+    line-height: 21px;
+    color: rgb(89, 165, 236);
+
+    background: #FFFFFF;
+    border: 3px solid #68AEF0;
+    box-sizing: border-box;
+    border-radius: 6px;
+}
+
+.reg {
+    border: 3px solid rgb(1, 209, 133);
+    background-color: #00FA9D;
+    color: #0F2D49;
+}
+
+.create-ad {
+    border: 3px solid rgb(1, 209, 133);
+    background-color: #00FA9D;
+    border-radius: 6px;
+
+    font-family: "Tahoma";
+    font-style: normal;
+    font-weight: bold;
+    font-size: 20px;
+    line-height: 24px;
+
+    color: #0F2D49;
+}
+
+.login:hover{
+    border: 3px solid rgb(52, 145, 231);
+    color: rgb(89, 165, 236);
+}
+
+.reg:hover{
+    border: 3px solid rgb(0, 184, 116);
+    color: #0F2D49;
+}
+
+.create-ad:hover{
+    border: 3px solid rgb(0, 184, 116);
+    color: #0F2D49;
+}
+
+.main-text {
+    font-family: "Tahoma";
+    font-style: normal;
+    font-weight: bold;
+    font-size: 36px;
+    line-height: 43px;
+
+    color: #0F2D49;
+}
+
+.main-t p {
+    font-family: "Tahoma";
+    font-style: normal;
+    font-weight: normal;
+    font-size: 18px;
+    line-height: 22px;
+    color: rgb(6, 20, 34);
+    margin: 0;
+    margin-top: 15px;
+}
+
+.new-ad {
+    font-family: Tahoma;
+    font-style: normal;
+    font-weight: bold;
+    font-size: 24px;
+    line-height: 29px;
+    /* identical to box height */
+
+    text-align: center;
+
+    color: #0F2D49;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+}
+
+form input {
+    width: 50%;
+    margin: 0;
+}
+
+.errorlist {
+    padding: 0;
+}
+
+.errorlist li {
+    list-style-type: none;
+    font-size: 12px;
+    color: red;
+}
+
+label {
+    margin: 0;
+}
+
+.helptext {
+
 }
 
