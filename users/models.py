@@ -9,6 +9,7 @@ from django.core.signing import TimestampSigner
 from django.core.mail import send_mail
 from django.db import models
 from django.utils import timezone
+from django.core.validators import MinLengthValidator
 
 HOST = 'http://127.0.0.1:8000'
 
@@ -19,7 +20,7 @@ class User(AbstractUser):
 
     signer = TimestampSigner()
 
-    phone = models.CharField(max_length=10, null=True)
+    phone = models.CharField(max_length=12, validators=[MinLengthValidator(9)], null=True)
     is_email_verified = models.BooleanField(default=False)
     secret_email_token = models.CharField(max_length=TOKEN_LENGTH)
     verification_email_sent_at = models.DateTimeField(null=True)

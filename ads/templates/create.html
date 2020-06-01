@@ -1,16 +1,31 @@
 {% extends 'main.html' %}
+{% load crispy_forms_tags %}
 
 {% block title %}
-    New Ad
+    Создать объявление
 {% endblock %}
 
 {% block app %}
-    <div>
-        <br/>
-        <form method="post" action="/ads/create/">
+    <div class="col-lg-6 mb-5">
+        <h1 class="main-text">Создать объявление</h1>
+        <form method="post" action="/ads/create/" enctype="multipart/form-data">
             {% csrf_token %}
-            {{ form }}
-            <input type="submit">
+            <div class="form-group">
+                {{ form|crispy }}
+            </div>
+            <input class="btn create-ad" type="submit">
         </form>
     </div>
 {% endblock %}
+
+<!-- {% block photo %}
+    <div class="col-lg-6 mb-5">
+        <h1 class="main-text">Создать объявление</h1>
+        <form method="post" action="/ads/create/">
+            {% csrf_token %}
+            <div class="form-group">
+                {{ Pform }}
+            </div>
+        </form>
+    </div>
+{% endblock %} -->

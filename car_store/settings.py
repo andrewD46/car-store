@@ -37,6 +37,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'crispy_forms',
     'users.apps.UsersConfig',
     'brands.apps.BrandsConfig',
     'ads.apps.AdsConfig',
@@ -72,6 +73,7 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'car_store.wsgi.application'
 
+CRISPY_TEMPLATE_PACK = 'bootstrap4'
 
 # Database
 # https://docs.djangoproject.com/en/3.0/ref/settings/#databases

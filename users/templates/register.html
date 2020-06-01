@@ -1,15 +1,19 @@
 {% extends 'main.html' %}
+{% load crispy_forms_tags %}
 
 {% block title %}
-    Register
+    Регистрация
 {% endblock %}
 
 {% block app %}
     <div class="col-lg-6 mb-5">
+        <h1 class="main-text">Регистрация</h1>
         <form method="post" action="/register/">
             {% csrf_token %}
-            {{ form }}
-            <input type="submit">
+            <div class="form-group">
+                {{ form|crispy }}
+            </div>
+            <input class="btn create-ad" type="submit">
         </form>
     </div>
 {% endblock %}

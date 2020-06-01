@@ -6,23 +6,28 @@ from users.models import User
 
 
 class RegistrationForm(forms.ModelForm):
-    # username = forms.CharField()
     # email = forms.EmailField()
     # phone = forms.CharField()
     # password = forms.CharField(widget=forms.PasswordInput())
-    password_confirm = forms.CharField(widget=forms.PasswordInput())
+    password_confirm = forms.CharField(label='Повторите Ваш пароль',
+                                       widget=forms.PasswordInput(attrs={'class': 'form-control'}))
 
     class Meta:
         model = User
         fields = [
             'username',
+            'first_name',
             'email',
             'phone',
             'password',
         ]
 
         widgets = {
-            'password': forms.PasswordInput(),
+            #     'username': forms.TextInput(attrs={'class': 'form-control'}),
+            #     'first_name': forms.TextInput(attrs={'class': 'form-control'}),
+            #     'email': forms.EmailInput(attrs={'class': 'form-control'}),
+            #     'phone': forms.NumberInput(attrs={'class': 'form-control'}),
+            'password': forms.PasswordInput(attrs={'class': 'form-control'}),
         }
 
         help_texts = {
@@ -30,7 +35,11 @@ class RegistrationForm(forms.ModelForm):
         }
 
         labels = {
-            'username': 'Имя пользователя',
+            'username': 'Ваш логин',
+            'first_name': 'Ваше настоящее имя',
+            'email': 'Ваш адрес электронной почти',
+            'phone': 'Ваш номер телефона',
+            'password': 'Ваш пароль',
         }
 
     def save(self, commit=True):
@@ -63,8 +72,8 @@ class RegistrationForm(forms.ModelForm):
 
 
 class LoginForm(forms.Form):
-    username = forms.CharField()
-    password = forms.CharField(widget=forms.PasswordInput())
+    username = forms.CharField(label='Ваш логин', widget=forms.TextInput())
+    password = forms.CharField(label='Ваш пароль', widget=forms.PasswordInput())
 
     def get_user(self, request):
         return authenticate(
