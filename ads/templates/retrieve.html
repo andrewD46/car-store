@@ -1,43 +1,45 @@
 {% extends 'main.html' %}
 {% load crispy_forms_tags %}
+{% load humanize %}
 
 {% block title %}
     {{ ad.brand }} {{ ad.car_model }}
 {% endblock %}
 
 {% block ads %}
-    <div class="container pt-5">
+    <div class="container pt-4 pb-5">
         <!-- Call to Action Well -->
         <div class="row align-items-center mt-5">
-            <div class="row">
-                <div class="col name-ad">
-                    <h1 class="mt-0">{{ ad.brand }} {{ ad.car_model }} {{ ad.equipment }}</h1>
-                </div>
+            <div class="col-12 name-ad">
+                <h1 class="mt-0 mb-1">{{ ad.brand }} {{ ad.car_model }} {{ ad.equipment }}</h1>
+                <p class="created-at mb-1">{{ ad.created_at|date:"d.m.Y" }} {{ ad.created_at|time:"H:i" }}</p>
             </div>
-            <div class="row">
-                <div class="col-lg-7">
-                    <img class="img-fluid rounded mb-lg-0 mt-0" src="{{ ad.image.url }}" alt="">
-                </div>
-                    <!-- /.col-lg-8 -->
-                <div class="col-lg-5 mb-5">
-                    <h1 class="features">Характеристики</h1>
-                    <p class="feature mt-4">Марка: {{ ad.brand }}</p>
-                    <p class="feature">Модель: {{ ad.car_model }}</p>
-                    <p class="feature">Тип двигателя: {{ ad.car_type }}</p>
-                    <p class="feature">Комплектация: {{ ad.equipment }}</p>
-                    <p class="feature">Год выпуска: {{ ad.year }}</p>
-                    <p class="feature">Пробег: {{ ad.mileage }} км</p>
-                    <p class="feature price mt-5 mb-0">${{ ad.price }}</p>
-                </div>
-                    <!-- /.col-md-4 -->
+        </div>
+        <div class="row">
+            <div class="col-lg-7 pb-4">
+                <img class="img-fluid rounded mb-lg-0 mt-0" style="max-height: 500px;" src="{{ ad.image.url }}" alt="">
             </div>
-            <div class="row">
-                <div class="col text-left">
-                    <p class="feature mt-4">Описание: {{ ad.description }}</p>
-                    <p class="feature">Продавец: {{ ad.author.first_name }}</p>
-                    <p class="feature">Телефон: {{ ad.author.phone }}</p>
-                    <a href="#" class="btn btn-primary btn-sm">Удалить</a>
-                </div>
+                <!-- /.col-lg-8 -->
+            <div class="col-lg-5 mb-5">
+                <h1 class="features">Характеристики</h1>
+                <p class="feature mt-4">Марка: {{ ad.brand }}</p>
+                <p class="feature">Модель: {{ ad.car_model }}</p>
+                <p class="feature">Тип двигателя: {{ ad.car_type }}</p>
+                <p class="feature">Комплектация: {{ ad.equipment }}</p>
+                <p class="feature">Год выпуска: {{ ad.year }}</p>
+                <p class="feature">Пробег: {{ ad.mileage|intcomma }} км</p>
+                <p class="feature price mt-5 mb-0">${{ ad.price|intcomma }}</p>
+            </div>
+                <!-- /.col-md-4 -->
+        </div>
+        <div class="row">
+            <div class="col-7 text-left">
+                <p class="feature">Описание:<br/>{{ ad.description }}</p>
+                <p class="feature">Продавец: {{ ad.author.first_name }}</p>
+                <p class="feature">Телефон: {{ ad.author.phone }}</p>
+                {% if ad.author == request.user %}
+                    <a href="/ads/delete/{{ ad.id }}" class="btn btn-danger btn-sm">Удалить</a>
+                {% endif %}
             </div>
         </div>
     </div>

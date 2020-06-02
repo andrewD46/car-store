@@ -14,17 +14,17 @@ class Ad(models.Model):
     year = models.CharField(max_length=4)
     equipment = models.CharField(max_length=200)
     mileage = models.CharField(max_length=8)
-    price = models.DecimalField(max_digits=10, decimal_places=2)
+    price = models.CharField(max_length=20)
     available = models.BooleanField(default=True)
     description = models.TextField()
     author = models.ForeignKey(User, related_name='author', on_delete=models.CASCADE)
     image = models.ImageField(upload_to="img", blank=False, null=True)
-    created_at = models.DateTimeField(default=timezone.now, null=True)
+    created_at = models.DateTimeField(default=timezone.now)
     # author_first_name = models.ForeignKey(User, related_name='author_first_name', on_delete=models.CASCADE)
     # phone = models.ForeignKey(User.phone, related_name='phone', on_delete=models.CASCADE)
 
     class Meta:
-        ordering = ('brand',)
+        ordering = ('-created_at',)
         verbose_name = 'Объявление'
         verbose_name_plural = 'Объявления'
 

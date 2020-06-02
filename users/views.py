@@ -1,5 +1,7 @@
+from django.conf import settings
 from django.contrib.auth import login, authenticate, logout
 from django.core.exceptions import NON_FIELD_ERRORS
+from django.core.paginator import Paginator
 from django.http import Http404
 from django.shortcuts import render, redirect
 
@@ -9,51 +11,58 @@ from users.models import User
 
 
 def register(request):
+    page = request.GET.get("page", 1)
+    ads = Ad.objects.filter().order_by("-created_at")
+    p = Paginator(ads, settings.ITEMS_PER_PAGE)
     if request.method == 'GET':
-        ads = Ad.objects.all()
         form = RegistrationForm()
         return render(request, 'register.html', context={
             "form": form,
-            'ads': ads,
+            'page': p.page(page)
         })
 
     elif request.method == 'POST':
-        ads = Ad.objects.all()
         form = RegistrationForm(request.POST)
         if form.is_valid():
             user = form.save()
             user.send_verification_email()
             login(request, user)
             return render(request, 'register_success.html', context={
-                "ads": ads
+                'page': p.page(page)
             })
         else:
             return render(request, 'register.html', context={
                 "form": form,
-                "ads": ads
+                'page': p.page(page)
             })
 
 
 def verify(request):
+    page = request.GET.get("page", 1)
+    ads = Ad.objects.filter().order_by("-created_at")
+    p = Paginator(ads, settings.ITEMS_PER_PAGE)
     user = request.user
     data = request.GET
     if user.is_token_correct(data['token']):
         user.verify_email()
-        return render(request, 'email_verified.html')
+        return render(request, 'email_verified.html', context={
+            'page': p.page(page),
+        })
     else:
         return Http404("Non found")
 
 
 def login_user(request):
-    ads = Ad.objects.all()
+    page = request.GET.get("page", 1)
+    ads = Ad.objects.filter().order_by("-created_at")
+    p = Paginator(ads, settings.ITEMS_PER_PAGE)
     if request.method == 'GET':
         form = LoginForm()
         return render(request, 'login.html', context={
             'form': form,
-            'ads': ads,
+            'page': p.page(page),
         })
     elif request.method == 'POST':
-        ads = Ad.objects.all()
         form = LoginForm(request.POST)
         form.is_valid()
         user = form.get_user(request)
@@ -61,10 +70,10 @@ def login_user(request):
             login(request, user)
             return redirect("/")
         else:
-            form.errors[NON_FIELD_ERRORS] = 'Cannot perform login with this credentials'
+            form.errors[NON_FIELD_ERRORS] = form.error_class(['Невозможно выполнить вход с этими учетными данными'])
             return render(request, "login.html", context={
                 'form': form,
-                "ads": ads
+                'page': p.page(page),
             })
 
 

@@ -1,5 +1,7 @@
 from django.contrib.auth.decorators import login_required
 from django.core.checks import messages
+from django.core.paginator import Paginator
+from django.db.models import Q
 from django.http import HttpResponseRedirect, HttpResponse
 from django.template import RequestContext
 
@@ -9,40 +11,51 @@ from django.shortcuts import render, redirect
 from django.core.files.base import ContentFile
 from django.forms import formset_factory, modelformset_factory
 
+from django.conf import settings
 from users.models import User
 
 
 def create(request):
+    page = request.GET.get("page", 1)
+    ads = Ad.objects.filter().order_by("-created_at")
+    p = Paginator(ads, settings.ITEMS_PER_PAGE)
     if request.method == 'GET':
         ads = Ad.objects.all()
         form = AdForm()
         return render(request, 'create.html', context={
             "form": form,
-            'ads': ads,
+            'page': p.page(page),
         })
     elif request.method == 'POST':
-        ads = Ad.objects.all()
         form = AdForm(request.POST, request.FILES)
         if form.is_valid():
             ad = form.save(commit=False)
             ad.author = request.user
             form.save()
             return render(request, 'create_success.html', context={
-                "ads": ads
+                'page': p.page(page),
             })
         else:
             return render(request, 'create.html', context={
                 "form": form,
-                "ads": ads
+                'page': p.page(page),
             })
 
 
 def all_ads(request):
-    if request.method == 'GET':
-        ads = Ad.objects.all()
-        return render(request, 'ads.html', context={
-            'ads': ads,
-        })
+    query = request.GET.get("q", "")
+    page = request.GET.get("page", 1)
+    ads = Ad.objects.filter(Q(brand__name__icontains=query) | Q(car_model__icontains=query)).order_by("-id")
+
+    p = Paginator(ads, settings.ITEMS_PER_PAGE)
+    return render(request, 'ads.html', context={
+        'page': p.page(page)
+    })
+    # if request.method == 'GET':
+    #     ads = Ad.objects.all()
+    #     return render(request, 'ads.html', context={
+    #         'ads': ads,
+    #     })
 
 
 def retrieve(request, id=None):
@@ -50,6 +63,17 @@ def retrieve(request, id=None):
     return render(request, 'retrieve.html', context={
         'ad': ad,
     })
+
+
+def delete(request, id=None):
+    page = request.GET.get("page", 1)
+    ads = Ad.objects.filter().order_by("-created_at")
+    p = Paginator(ads, settings.ITEMS_PER_PAGE)
+    Ad.objects.filter(pk=id).delete()
+    return render(request, 'delete_success.html', context={
+            'page': p.page(page),
+        })
+
 
 # @login_required
 # def create(request):

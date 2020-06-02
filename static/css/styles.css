@@ -23,10 +23,35 @@ footer {
     width: 100%;
     /* Set the fixed height of the footer here */
     height: 110px;
+    font-family: Tahoma;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 16px;
+    line-height: 16px;
+    
+    color: #0F2D49;
+    background-color: rgb(255, 255, 255);
+    box-shadow: 0 -8px 15px rgba(15, 45, 73, 0.103);
 }
 
 .asteriskField {
     display: none;
+}
+
+.has-search .form-control {
+    padding-left: 2.375rem;
+}
+
+.has-search .form-control-feedback {
+    position: absolute;
+    z-index: 2;
+    display: block;
+    width: 2.375rem;
+    height: 2.375rem;
+    line-height: 2.375rem;
+    text-align: center;
+    pointer-events: none;
+    color: #aaa;
 }
 
 a {
@@ -242,6 +267,15 @@ a:hover {
     color: #0F2D49;
 }
 
+.created-at {
+    font-family: 'Roboto', sans-serif;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 16px;
+    line-height: 26px;
+    color: rgb(64, 89, 112);
+}
+
 .features {
     font-family: 'Roboto', sans-serif;
     font-style: normal;
@@ -252,7 +286,7 @@ a:hover {
 }
 
 .feature {
-    font-family: Roboto;
+    font-family: 'Roboto', sans-serif;
     font-style: normal;
     font-weight: normal;
     font-size: 18px;
@@ -260,10 +294,29 @@ a:hover {
 }
 
 .price {
-    font-family: Tahoma;
+    font-family: "Tahoma";
     font-style: normal;
     font-weight: bold;
     font-size: 22px;
     line-height: 27px;
+    color: rgb(19, 161, 109);
+}
+
+.page-link {
+    font-family: 'Roboto', sans-serif;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 16px;
     color: #0F2D49;
+    background-color: white;
+}
+
+.page-link:hover {
+    color: #0F2D49;
+    background-color: rgb(238, 238, 238);
+}
+
+.page-item.active .page-link {
+    background-color: rgb(89, 165, 236);
+    border: 2px solid rgb(52, 145, 231);
 }

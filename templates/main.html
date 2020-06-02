@@ -1,4 +1,5 @@
 {% load static %}
+{% load humanize %}
 
 <!DOCTYPE html>
 <html lang="en">
@@ -52,54 +53,77 @@
         <!-- /.col-md-4 -->
       </div>
       <!-- /.row -->
-
-      <!-- Call to Action Well -->
-      <div class="my-1 text-center new-ad">
-        <div class="card-body">
-          <p class="m-0">Новые предложения</p>
+      {% block about %}
+        <!-- Call to Action Well -->
+        <div class="my-1 text-center new-ad">
+          <div class="card-body">
+            <p class="m-0">Новые предложения</p>
+          </div>
         </div>
-      </div>
 
-      <!-- Content Row -->
-      <div class="row">
-        {% for ad in ads %}
-          <!-- <div class="col-md-4 mb-5">
-            <div class="card h-100">
-              <div class="card-body" style="background-image: url({{ ad.image.url }});">
-                <h2 class="card-title text-center">{{ ad.brand }} {{ ad.car_model }}</h2>
-                <p class="card-year">{{ ad.year }}</p>
-                <p class="card-text">${{ ad.price }}</p>
-              </div>
-              <div class="card-footer">
-                <a href="#" class="btn btn-primary btn-sm">More Info</a>
-              </div>
-            </div>
-          </div> -->
-          <div class="col-md-4 mb-5">
-            <a href="/ads/{{ ad.id }}">
-              <div class="card h-100" style="width: 20rem;">
-                <img class="card-img-top car-pic" src="{{ ad.image.url }}" alt="Card image cap">
-                <div class="card-body d-flex flex-column">
-                  <div class="mt-auto">
-                    <h5 class="card-title">{{ ad.brand }} {{ ad.car_model }}</h5>
-                    <p class="card-year">{{ ad.year }}</p>
-                    <p class="card-price">${{ ad.price }}</p>
-                    <!-- <a href="#" class="btn open-ad">Подробнее</a> -->
-                  </div>
+        <!-- Content Row -->
+        <div class="row">
+          {% for ad in page.object_list %}
+            <!-- <div class="col-md-4 mb-5">
+              <div class="card h-100">
+                <div class="card-body" style="background-image: url({{ ad.image.url }});">
+                  <h2 class="card-title text-center">{{ ad.brand }} {{ ad.car_model }}</h2>
+                  <p class="card-year">{{ ad.year }}</p>
+                  <p class="card-text">${{ ad.price }}</p>
+                </div>
+                <div class="card-footer">
+                  <a href="#" class="btn btn-primary btn-sm">More Info</a>
                 </div>
               </div>
-            </a>
-          </div>
-        {% endfor %}
+            </div> -->
+            <div class="col-md-4 mb-5">
+              <a href="/ads/{{ ad.id }}">
+                <div class="card h-100" style="width: 20rem;">
+                  <img class="card-img-top car-pic" src="{{ ad.image.url }}" alt="Card image cap">
+                  <div class="card-body d-flex flex-column">
+                    <div class="mt-auto">
+                      <h5 class="card-title">{{ ad.brand }} {{ ad.car_model }}</h5>
+                      <p class="card-year">{{ ad.year }}</p>
+                      <p class="card-price">${{ ad.price|intcomma }}</p>
+                      <!-- <a href="#" class="btn open-ad">Подробнее</a> -->
+                    </div>
+                  </div>
+                </div>
+              </a>
+            </div>
+          {% endfor %}
+        </div>
+      {% endblock %}
+    </div>
+    {% block about_bt %}
+    <div class="row mt-2 w-100">
+      <div class="col-12 mb-5 text-center">
+        <a class="btn create-ad" href="/ads">Ещё</a>
       </div>
     </div>
+    {% endblock %}
   {% endblock %}
   <!-- /.container -->
 
   <!-- Footer -->
-  <footer class="py-5 bg-dark">
-    <div class="container">
-      <p class="m-0 text-center text-white">E-car 2020</p>
+  <footer class="py-3">
+    <div class="container d-flex flex-column-reverse flex-lg-row justify-content-between">
+      <ul class="d-inline-block pl-0 flex-column copyright mt-3 text-center text-lg-left">
+        <li class="d-block mt-2" style="font-size: 16px;">Первая онлайн-площадка объявлений электромобилей в РБ.</li>
+        <li class="d-block" style="font-size: 16px;">&copy; E-car Все права защищены</li>
+      </ul>
+
+      <ul class="d-inline-block flex-row justify-content-center mt-3 mr-5 text-center social">
+        <li class="d-inline-block p-2">
+          <a href="#"><img src="{% static 'img/f.svg' %}" alt="telegram"></a>
+        </li>
+        <li class="d-inline-block p-2">
+          <a href="#"><img src="{% static 'img/inst.svg' %}" alt="instagram"></a>
+        </li>
+        <li class="d-inline-block p-2">
+          <a href="#"><img src="{% static 'img/vk.svg' %}" alt="vk"></a>
+        </li>
+      </ul>
     </div>
     <!-- /.container -->
   </footer>
