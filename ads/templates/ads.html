@@ -56,7 +56,7 @@
         {% if page.has_other_pages %}
           <ul class="pagination justify-content-center">
             {% if page.has_previous %}
-              <li class="page-item"><a class="page-link" href="?page={{ page.previous_page_number }}">Предыдущая</a></li>
+              <li class="page-item"><a class="page-link" href="?{{ request.GET.urlencode }}&page={{ page.previous_page_number }}">Предыдущая</a></li>
             {% else %}
               <li class="page-item disabled"><span class="page-link">Предыдущая</span></li>
             {% endif %}
@@ -64,11 +64,11 @@
               {% if page.number == i %}
                 <li class="page-item active"><span class="page-link">{{ i }} <span class="sr-only">(current)</span></span></li>
               {% else %}
-                <li class="page-item"><a class="page-link" href="?page={{ i }}">{{ i }}</a></li>
+                <li class="page-item"><a class="page-link" href="?{{ request.GET.urlencode }}&page={{ i }}">{{ i }}</a></li>
               {% endif %}
             {% endfor %}
             {% if page.has_next %}
-              <li class="page-item"><a class="page-link" href="?page={{ page.next_page_number }}">Следующая</a></li>
+              <li class="page-item"><a class="page-link" href="?{{ request.GET.urlencode }}&page={{ page.next_page_number }}">Следующая</a></li>
             {% else %}
               <li class="page-item disabled"><span class="page-link">Следующая</span></li>
             {% endif %}

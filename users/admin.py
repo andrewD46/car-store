@@ -1,5 +1,4 @@
 from django.contrib import admin
-from users.models import User, Avatar
+from users.models import User
 
 admin.site.register(User)
-admin.site.register(Avatar)
