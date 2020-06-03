@@ -42,6 +42,8 @@ INSTALLED_APPS = [
     'brands.apps.BrandsConfig',
     'ads.apps.AdsConfig',
     'django.contrib.humanize',
+    'django_filters',
+    'bootstrapform',
 ]
 
 MIDDLEWARE = [

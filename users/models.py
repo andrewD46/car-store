@@ -20,7 +20,7 @@ class User(AbstractUser):
 
     signer = TimestampSigner()
 
-    phone = models.CharField(max_length=12, validators=[MinLengthValidator(9)], null=True)
+    phone = models.CharField(max_length=12, validators=[MinLengthValidator(12)], null=True)
     is_email_verified = models.BooleanField(default=False)
     secret_email_token = models.CharField(max_length=TOKEN_LENGTH)
     verification_email_sent_at = models.DateTimeField(null=True)

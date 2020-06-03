@@ -36,7 +36,7 @@
             <div class="col-7 text-left">
                 <p class="feature">Описание:<br/>{{ ad.description }}</p>
                 <p class="feature">Продавец: {{ ad.author.first_name }}</p>
-                <p class="feature">Телефон: {{ ad.author.phone }}</p>
+                <p class="feature">Телефон: +{{ ad.author.phone }}</p>
                 {% if ad.author == request.user %}
                     <a href="/ads/delete/{{ ad.id }}" class="btn btn-danger btn-sm">Удалить</a>
                 {% endif %}
